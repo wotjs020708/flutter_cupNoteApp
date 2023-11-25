@@ -34,12 +34,27 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 2,
         foregroundColor: Colors.white,
-        title: const Text(
-          "COFFEE NOTE",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              "COFFEE CUPNOTE",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.help_center_outlined),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => showHelpDialog(),
+                );
+              },
+            )
+          ],
         ),
       ),
       body: FutureBuilder(
@@ -418,5 +433,31 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  Widget showHelpDialog() {
+    return AlertDialog(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text("도움말"),
+            IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(Icons.close),
+            ),
+          ],
+        ),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("컵노트를 형식에 맞게 입력하세요"),
+            SizedBox(
+              height: 20,
+            ),
+            Text("삭제 : 삭제버튼 클릭"),
+            Text("수정 : 수정버튼 클릭"),
+            Text("추가 : 추가버튼 클릭"),
+          ],
+        ));
   }
 }
